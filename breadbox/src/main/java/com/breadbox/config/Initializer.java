@@ -14,7 +14,8 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class<?>[] {
 			MvcConfig.class,
-			SecuritySharedConfig.class
+			SecuritySharedConfig.class,
+			CustomerSecurityConfig.class
 		};
 	}
 

@@ -24,18 +24,17 @@
 				<h3>Log In</h3>
 				<h5 class="text-secondary">Continue to BreadBox</h5>
 			</div>
-			
+			<h6 class="text-danger"><c:out value="${error}"></c:out></h6>
 			<c:url value="/login" var="loginUrl" />
 			<sf:form action="${loginUrl}" method="post" cssClass="w-100">
-			
 				<div class="mb-3">
-					<label for="email" class="form-label">Email</label>
-					<input type="text" name="email" placeholder="Enter Login Email" class="form-control rounded-0" />
+					<label for="username" class="form-label">Email</label>
+					<input type="text" name="username" placeholder="Enter Login Email" required="required" class="form-control rounded-0" />
 				</div>
 			
 				<div class="mb-3">
 					<label for="password" class="form-label">Password</label>
-					<input type="password" name="password" placeholder="Enter Passwordl" class="form-control rounded-0" />
+					<input type="password" name="password" placeholder="Enter Passwordl" required="required" class="form-control rounded-0" />
 				</div>
 				<div class="mb-3">
 					<input type="checkbox" name="remember-me" id="rememberMe" class="form-check-input rounded-0" />

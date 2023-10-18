@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.breadbox.controller")
+@ComponentScan(basePackages = {"com.breadbox.controller", "com.breadbox.handler"})
 public class MvcConfig  implements WebMvcConfigurer{
 	
 	@Override
@@ -22,6 +22,8 @@ public class MvcConfig  implements WebMvcConfigurer{
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("home");
 		registry.addViewController("/login").setViewName("login");
+		registry.addViewController("/admin").setViewName("admin");
+		registry.addViewController("/customer").setViewName("customer");
 	}
 	
 	@Override
