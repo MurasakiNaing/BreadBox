@@ -17,11 +17,8 @@
 		<c:url value="/login" var="login"></c:url>
 		<a href="${login}" class="btn btn-primary">Sign In</a>
 		
-		<c:url value="/customer" var="customer"></c:url>
-		<a href="${customer}" class="btn btn-primary">Customer Home</a>
-		
-		<c:url value="/admin" var="admin"></c:url>
-		<a href="${admin}" class="btn btn-primary">Admin Home</a>
+		<c:url value="/sign-up" var="signUp"></c:url>
+		<a href="${signUp}" class="btn btn-primary">Sign Up</a>
 	</div>
 </body>
 </html>

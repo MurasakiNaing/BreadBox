@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.breadbox.controller", "com.breadbox.handler"})
+@ComponentScan(basePackages = "com.breadbox.controller")
 public class MvcConfig  implements WebMvcConfigurer{
 	
 	@Override

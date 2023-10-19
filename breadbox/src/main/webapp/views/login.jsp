@@ -34,7 +34,7 @@
 			
 				<div class="mb-3">
 					<label for="password" class="form-label">Password</label>
-					<input type="password" name="password" placeholder="Enter Passwordl" required="required" class="form-control rounded-0" />
+					<input type="password" name="password" placeholder="Enter Password" required="required" class="form-control rounded-0" />
 				</div>
 				<div class="mb-3">
 					<input type="checkbox" name="remember-me" id="rememberMe" class="form-check-input rounded-0" />

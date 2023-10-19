@@ -6,16 +6,16 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
-		return new Class<?>[] {};
+		return new Class<?>[] {
+			RootConfig.class,
+			SecurityConfig.class
+			};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class<?>[] {
-			MvcConfig.class,
-			SecuritySharedConfig.class,
-			CustomerSecurityConfig.class
+			MvcConfig.class
 		};
 	}
 
