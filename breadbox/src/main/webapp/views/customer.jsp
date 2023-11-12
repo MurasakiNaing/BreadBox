@@ -13,6 +13,7 @@
 <script src="${jsBs}"></script>
 </head>
 <body>
+	<jsp:include page="shared/navbar.jsp"></jsp:include>
 	<div class="container">
 		<h1>Welcome From BreadBox. Customer</h1>
 		

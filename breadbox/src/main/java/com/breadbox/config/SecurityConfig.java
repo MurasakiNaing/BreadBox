@@ -27,7 +27,7 @@ public class SecurityConfig {
 	@Autowired
 	private CustomAuthenticationSuccessHandler successHandler;
 	
-	@Bean()
+	@Bean
     public HandlerMappingIntrospector mvcHandlerMappingIntrospector() {
         return new HandlerMappingIntrospector();
     }
@@ -77,7 +77,12 @@ public class SecurityConfig {
 			form.failureForwardUrl("/login-error");
 		});
 		
-		http.logout(Customizer.withDefaults());
+		http.rememberMe(Customizer.withDefaults());
+		
+		http.logout(logout -> {			
+			logout.logoutSuccessUrl("/");
+		}
+		);
 		
 		return http.build();
 	}
@@ -86,8 +91,8 @@ public class SecurityConfig {
 	JdbcUserDetailsManager configure(DataSource datasource) {
 		var userDetailsService = new JdbcUserDetailsManager(datasource);
 		userDetailsService
-				.setUsersByUsernameQuery("select email username, password, true from user where email = ?");
-		userDetailsService.setAuthoritiesByUsernameQuery("select email username, role from user where email = ?");
+				.setUsersByUsernameQuery("select email username, password, true from users where email = ?");
+		userDetailsService.setAuthoritiesByUsernameQuery("select email username, role from users where email = ?");
 		return userDetailsService;
 	}
 }

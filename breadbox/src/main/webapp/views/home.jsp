@@ -12,6 +12,8 @@
 <script src="${jsBs}"></script>
 </head>
 <body>
+	
+	<jsp:include page="shared/navbar.jsp"></jsp:include>
 	<div class="container">
 		<h1>Welcome From BreadBox.</h1>
 		<c:url value="/login" var="login"></c:url>

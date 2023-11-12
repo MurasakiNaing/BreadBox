@@ -28,7 +28,6 @@ public class SignUpController {
 	public String signup(@Validated @ModelAttribute("form") SignupForm form, BindingResult result) {
 		if(result.hasErrors())
 			return "sign-up";
-		System.out.println("Hello");
 		
 		service.singUp(form);
 		

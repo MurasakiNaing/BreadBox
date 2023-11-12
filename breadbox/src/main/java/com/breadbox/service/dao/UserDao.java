@@ -32,13 +32,13 @@ public class UserDao {
 	
 	public UserDto findById(String email) {
 		template = new JdbcTemplate(datasource);
-		return template.queryForObject("select * from user where email = ?",
+		return template.queryForObject("select * from users where email = ?",
 				new BeanPropertyRowMapper<>(UserDto.class),
 				email);
 	}
 
 	public int singUp(SignupForm form) {
-		insert.setTableName("user");
+		insert.setTableName("users");
 		insert.setGeneratedKeyName("userId");
 		return insert.executeAndReturnKey(getInsertParams(form)).intValue();
 	}
