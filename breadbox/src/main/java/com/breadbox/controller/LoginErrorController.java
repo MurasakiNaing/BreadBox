@@ -11,7 +11,7 @@ public class LoginErrorController {
 
 	@PostMapping
 	public String loginEror(ModelMap model) {
-		System.out.println("Hello");
+		// Add Error message to display back to users.
 		model.addAttribute("error", "Username or Password is incorrect.");
 		return "login";
 	}

@@ -17,7 +17,7 @@ public class UserService {
 		return userDao.findById(email);
 	}
 	
-	public int singUp(SignupForm form) {
-		return userDao.singUp(form);
+	public void signUp(SignupForm form) {
+		userDao.signUp(form);
 	}
 }

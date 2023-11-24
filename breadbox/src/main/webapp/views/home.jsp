@@ -6,10 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
-<c:url value="resources/css/bootstrap.min.css" var="cssBs" />
-<c:url value="resources/js/bootstrap.bundle.min.js" var="jsBs" />
+<c:url value="/resources/css/bootstrap.min.css" var="cssBs" />
+<c:url value="/resources/js/bootstrap.bundle.min.js" var="jsBs" />
+<c:url value="/resources/js/all.js" var="jsFa" />
 <link rel="stylesheet" href="${cssBs}">
 <script src="${jsBs}"></script>
+<script src="${jsFa}"></script>
 </head>
 <body>
 	

@@ -28,4 +28,5 @@ public class RootConfig {
 	public SimpleJdbcInsert simpleJdbcInsert(DataSource datasource) {
 		return new SimpleJdbcInsert(datasource);
 	}
+	
 }

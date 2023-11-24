@@ -13,18 +13,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
+public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-		if(roles.contains("Admin")) {
+		if (roles.contains("Admin")) {
 			response.sendRedirect("/admin");
-		} else if(roles.contains("Customer")) {
-			response.sendRedirect("/customer");
+		} else if (roles.contains("Customer")) {
+			response.sendRedirect("/");
 		}
-		
+
 	}
 
 }

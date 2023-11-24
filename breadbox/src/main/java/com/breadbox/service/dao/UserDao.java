@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -32,15 +33,19 @@ public class UserDao {
 	
 	public UserDto findById(String email) {
 		template = new JdbcTemplate(datasource);
-		return template.queryForObject("select * from users where email = ?",
-				new BeanPropertyRowMapper<>(UserDto.class),
-				email);
+		try {
+			return template.queryForObject("select * from users where email = ?",
+					new BeanPropertyRowMapper<>(UserDto.class),
+					email);
+		} catch(EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
-	public int singUp(SignupForm form) {
+	public void signUp(SignupForm form) {
 		insert.setTableName("users");
 		insert.setGeneratedKeyName("userId");
-		return insert.executeAndReturnKey(getInsertParams(form)).intValue();
+		insert.execute(getInsertParams(form));
 	}
 	
 	private Map<String, Object> getInsertParams(SignupForm form) {

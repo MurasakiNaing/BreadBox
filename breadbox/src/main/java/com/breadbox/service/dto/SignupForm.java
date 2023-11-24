@@ -17,7 +17,8 @@ public class SignupForm {
 	@NotBlank(message = "Please enter password.")
 	private String password;
 	
-	@NotBlank(message = "Password must match.")
+	@NotBlank(message = "Password confirm password.")
 	private String confirmPassword;
 	
+	private String profile;
 }

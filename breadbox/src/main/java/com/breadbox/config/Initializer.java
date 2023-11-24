@@ -2,6 +2,9 @@ package com.breadbox.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import jakarta.servlet.MultipartConfigElement;
+import jakarta.servlet.ServletRegistration.Dynamic;
+
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer{
 
 	@Override
@@ -25,4 +28,9 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 		return new String[] {"/"};
 	}
 
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setMultipartConfig(new MultipartConfigElement("/tmp"));
+	}
+	
 }

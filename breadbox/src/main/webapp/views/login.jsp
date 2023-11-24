@@ -8,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Sign In</title>
-<c:url value="resources/css/bootstrap.min.css" var="cssBs" />
-<c:url value="resources/js/bootstrap.bundle.min.js" var="jsBs" />
+<c:url value="/resources/css/bootstrap.min.css" var="cssBs" />
+<c:url value="/resources/js/bootstrap.bundle.min.js" var="jsBs" />
 <link rel="stylesheet" href="${cssBs}">
 <script src="${jsBs}"></script>
 </head>
@@ -47,7 +47,8 @@
 			</sf:form>
 			<p class="text-muted forgot-pw mb-3">Forgot Password?</p>	
 			<hr/>
-			<p>Don't have an account? Get Started</p>
+			<c:url value="/sign-up" var="signUp"></c:url>
+			<p>Don't have an account?<a href="${signUp}"> Get Started</a></p>
 		</div>
 	</div>
 </body>

@@ -26,23 +26,23 @@ public class SecurityConfig {
 
 	@Autowired
 	private CustomAuthenticationSuccessHandler successHandler;
-	
+
 	@Bean
-    public HandlerMappingIntrospector mvcHandlerMappingIntrospector() {
-        return new HandlerMappingIntrospector();
-    }
-	
+	public HandlerMappingIntrospector mvcHandlerMappingIntrospector() {
+		return new HandlerMappingIntrospector();
+	}
+
 	@Scope("prototype")
 	@Bean
 	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
 		return new MvcRequestMatcher.Builder(introspector);
 	}
-	
-	@Bean 
-	public PasswordEncoder passwordEncoder() { 
-	    return new BCryptPasswordEncoder(); 
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	SecurityFilterChain homeFilter(HttpSecurity http) throws Exception {
 
@@ -61,37 +61,40 @@ public class SecurityConfig {
 
 		return http.build();
 	}
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
+		MvcRequestMatcher[] userUrls = new MvcRequestMatcher[] { mvc.pattern("/cart"), mvc.pattern("/add-to-cart/{id}"),
+				mvc.pattern("/settings"), mvc.pattern("/orders") };
+		MvcRequestMatcher[] customerUrls = new MvcRequestMatcher[] {mvc.pattern("/cart-details/**")};
 		http.authorizeHttpRequests(request -> {
-			request.requestMatchers(mvc.pattern("/login"), mvc.pattern("/sign-up/**")).permitAll();
+			request.requestMatchers(mvc.pattern("/login"), mvc.pattern("/sign-up"), mvc.pattern("/menu"),
+					mvc.pattern("/details/**")).permitAll();
 			request.requestMatchers(mvc.pattern("/admin/**")).hasAuthority("Admin");
-			request.requestMatchers(mvc.pattern("/customer/**")).hasAnyAuthority("Customer", "Admin");
+			request.requestMatchers(customerUrls).hasAnyAuthority("Customer", "Admin");
+			request.requestMatchers(userUrls).authenticated().requestMatchers(userUrls).hasAuthority("Customer");
 			request.anyRequest().denyAll();
 		});
-		
+
 		http.formLogin(form -> {
 			form.loginPage("/login");
 			form.successHandler(successHandler);
 			form.failureForwardUrl("/login-error");
 		});
-		
+
 		http.rememberMe(Customizer.withDefaults());
-		
-		http.logout(logout -> {			
+
+		http.logout(logout -> {
 			logout.logoutSuccessUrl("/");
-		}
-		);
-		
+		});
+
 		return http.build();
 	}
-	
+
 	@Bean
 	JdbcUserDetailsManager configure(DataSource datasource) {
 		var userDetailsService = new JdbcUserDetailsManager(datasource);
-		userDetailsService
-				.setUsersByUsernameQuery("select email username, password, true from users where email = ?");
+		userDetailsService.setUsersByUsernameQuery("select email username, password, true from users where email = ?");
 		userDetailsService.setAuthoritiesByUsernameQuery("select email username, role from users where email = ?");
 		return userDetailsService;
 	}
