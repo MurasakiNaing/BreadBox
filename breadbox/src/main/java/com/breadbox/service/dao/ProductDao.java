@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -18,6 +19,7 @@ import com.breadbox.service.dto.ProductDto;
 public class ProductDao {
 
 	@Autowired
+	@Qualifier("products")
 	SimpleJdbcInsert insert;
 
 	public List<ProductDto> getAllProduct() {
@@ -53,9 +55,15 @@ public class ProductDao {
 		}
 	}
 	
+	public List<ProductDto> searchProduct(String name) {
+		// Get JDBC Template
+		var template = insert.getJdbcTemplate();
+		// SQL Query
+		var sql = "select * from products where lower(name) like lower('%s')";
+		return template.query(sql.formatted(name+"%"), new BeanPropertyRowMapper<>(ProductDto.class));
+	}
+	
 	public void addProduct(ProductDto product) {
-		// Set table to insert
-		insert.setTableName("products");
 		// Add product to products table
 		insert.execute(new BeanPropertySqlParameterSource(product));
 	}

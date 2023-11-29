@@ -49,7 +49,7 @@
 					<p>Click To Add Image</p>
 				</div>
 				<img id="imagePreview" class="${product.id != 0 ? '' : 'd-none'}" src="${product.id == 0 ? '' : product.image}" alt="" onclick="triggerFileInput()" style="width: 200px; height: 200px; display: block;">
-				<button class="btn btn-outline-danger" type="button" onclick="removeImage()" id="imgRemove">Remove Image</button>
+				<button class="btn btn-outline-danger mt-2" type="button" onclick="removeImage()" id="imgRemove">Remove Image</button>
 			</div>
 			
 			<div class="mb-3 col-9">

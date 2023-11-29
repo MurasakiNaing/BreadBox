@@ -12,22 +12,24 @@
 			</button>
 			<a class="navbar-brand d-none d-lg-block d-xl-block d-xxl-block"
 				href="/" style="padding-left: 12px; padding-right: 12px">Navbar</a>
-			<div class="input-group d-lg-none w-auto ms-auto me-auto">
-				<input type="text" class="form-control"
-					placeholder="Search Products" aria-label="Search Products"
-					aria-describedby="button-addon2">
-				<button class="btn btn-outline-secondary" type="button"
-					id="button-addon2">
-					<i class="fa-solid fa-magnifying-glass"></i>
-				</button>
-			</div>
+			<c:url value="/search" var="searchUrl"></c:url>
+			<sf:form action="${searchUrl}" method="get">
+				<div class="input-group d-lg-none w-auto ms-auto me-auto">
+					<input type="text" class="form-control" name="name"
+						placeholder="Search Products" aria-label="Search Products">
+					<button class="btn btn-outline-secondary" type="submit">
+						<i class="fa-solid fa-magnifying-glass"></i>
+					</button>
+				</div>
+			</sf:form>
 			<c:if test="${not (user.role eq 'Admin')}">
 				<div>
-					<a href="#"
+					<c:url value="/cart-details" var="cartDetails"></c:url>
+					<a href="${cartDetails}"
 						class="d-lg-none d-xl-none d-xxl-none btn btn-outline-secondary me-1">
 						<i class="fa-solid fa-bag-shopping fa-lg"></i>
 						<c:if test="${cart.items.size() gt 0}">
-			           		<sup class="badge rounded-5 badge-notification bg-danger">1</sup>
+			           		<sup class="badge rounded-5 badge-notification bg-danger">${cart.items.size()}</sup>
 		                </c:if>
 					</a>
 				</div>
@@ -61,8 +63,10 @@
 										<c:url value="/admin/edit-category" var="editCategory"></c:url>
 										<li><a class="dropdown-item" href="${editCategory}">Category</a></li>
 									</ul></li>
-								<li class="nav-item mt-1"><a class="nav-link active"
-									href="#"><i class="fa-solid fa-list-check"></i> Orders</a></li>
+								<li class="nav-item mt-1">
+								<c:url value="/orders" var="order"></c:url>
+								<a class="nav-link active"
+									href="${order}"><i class="fa-solid fa-list-check"></i> Orders</a></li>
 
 							</c:when>
 							<c:otherwise>
@@ -72,21 +76,23 @@
 										class="fa-regular fa-address-card"></i> About
 								</a></li>
 
-								<li class="nav-item mt-1 mx-lg-2"><a
-									class="nav-link active" href="#"> <i
+								<li class="nav-item mt-1 mx-lg-2">
+								<c:url value="/orders" var="order"></c:url>
+								<a class="nav-link active" href="${order}"> <i
 										class="fa-solid fa-list-check"></i> Orders
 								</a></li>
 							</c:otherwise>
 						</c:choose>
-						<div
-							class="input-group w-auto d-none d-lg-inline-flex d-xl-inline-flex d-xxl-flex mt-1 mx-lg-2">
-							<input type="text" class="form-control"
-								placeholder="Search Products" aria-label="Search Products"
-								aria-describedby="button-addon2">
-							<button class="btn btn-outline-secondary" type="button">
-								<i class="fa-solid fa-magnifying-glass"></i>
-							</button>
-						</div>
+						<c:url value="/search" var="searchUrl"></c:url>
+						<sf:form action="${searchUrl}" method="get">
+							<div class="input-group w-auto d-none d-lg-inline-flex d-xl-inline-flex d-xxl-flex mt-1 mx-lg-2">
+								<input type="text" class="form-control" name="name"
+									placeholder="Search Products" aria-label="Search Products">
+								<button class="btn btn-outline-secondary" type="submit">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
+							</div>
+						</sf:form>
 
 						<c:if test="${user.role eq 'Customer' }">
 							<li
@@ -162,17 +168,22 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<a class="navbar-brand d-none d-lg-block d-xl-block d-xxl-block"
-				href="#" style="padding-left: 12px; padding-right: 12px">Navbar</a>
-			<div class="input-group d-lg-none w-auto">
-				<input type="text" class="form-control"
-					placeholder="Search Products" aria-label="Search Products"
-					aria-describedby="button-addon2">
-				<button class="btn btn-outline-secondary" type="button"
-					id="button-addon2">
-					<i class="fa-solid fa-magnifying-glass"></i>
-				</button>
-			</div>
-			<a href="#"
+				href="/" style="padding-left: 12px; padding-right: 12px">Navbar</a>
+			
+			<c:url value="/search" var="searchUrl"></c:url>
+			<sf:form action="${searchUrl}" method="get">
+				<div class="input-group d-lg-none w-auto">
+					<input type="text" class="form-control" name="name"
+						placeholder="Search Products" aria-label="Search Products"
+						aria-describedby="button-addon2">
+					<button class="btn btn-outline-secondary" type="button"
+						id="button-addon2">
+						<i class="fa-solid fa-magnifying-glass"></i>
+					</button>
+				</div>
+			</sf:form>	
+			
+			<a href="/cart-details"
 				class="d-lg-none d-xl-none d-xxl-none btn btn-outline-secondary me-1">
 				<i class="fa-solid fa-bag-shopping fa-lg"></i>
 			</a>
@@ -186,7 +197,7 @@
 				<div class="offcanvas-body ms-lg-auto">
 					<ul class="navbar-nav me-2 mt-1">
 						<li class="nav-item mt-1 mx-lg-2"><a class="nav-link active"
-							href="#"><i class="fa-solid fa-house"></i> Home</a></li>
+							href="/"><i class="fa-solid fa-house"></i> Home</a></li>
 						<li class="nav-item mt-1 mx-lg-2"><a class="nav-link active"
 							href="/menu"> <i class="fa-solid fa-bread-slice"></i> Menu
 						</a></li>
@@ -195,22 +206,28 @@
 							href="#"> <i class="fa-regular fa-address-card"></i> About
 						</a></li>
 
-						<li class="nav-item mt-1 mx-lg-2"><a class="nav-link active"
-							href="#"> <i class="fa-solid fa-list-check"></i> Orders
+						<li class="nav-item mt-1 mx-lg-2">
+						<c:url value="/orders" var="order"></c:url>
+						<a class="nav-link active"
+							href="${order}"> <i class="fa-solid fa-list-check"></i> Orders
 						</a></li>
 
-						<div
-							class="input-group w-auto d-none d-lg-inline-flex d-xl-inline-flex d-xxl-flex mt-1 mx-lg-2">
-							<input type="text" class="form-control"
-								placeholder="Search Products" aria-label="Search Products">
-							<button class="btn btn-outline-secondary" type="button">
-								<i class="fa-solid fa-magnifying-glass"></i>
-							</button>
-						</div>
+						
+						<c:url value="/search" var="searchUrl"></c:url>
+						<sf:form action="${searchUrl}" method="get">
+							<div class="input-group w-auto d-none d-lg-inline-flex d-xl-inline-flex d-xxl-flex mt-1 mx-lg-2">
+								<input type="text" class="form-control" name="name"
+									placeholder="Search Product" aria-label="Search Product">
+								<button class="btn btn-outline-secondary" type="submit">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
+							</div>
+						</sf:form>
+						
 
 						<li
 							class="nav-item d-none d-lg-inline d-xl-inline d-xxl-inline mt-1 mx-lg-2">
-							<a class="nav-link active" href="#"><i
+							<a class="nav-link active" href="/cart-details"><i
 								class="fa-solid fa-bag-shopping fa-lg"></i> Cart</a>
 						</li>
 

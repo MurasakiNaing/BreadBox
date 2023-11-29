@@ -1,5 +1,7 @@
 package com.breadbox.service.dto;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class Cart {
 		}
 	}
 	
-	public int getToal() {
+	public int getTotal() {
 		return items.stream().mapToInt(SaleItems::getAmount).sum();
 	}
 	
@@ -53,8 +55,27 @@ public class Cart {
 		items.clear();
 	}
 	
+	public VoucherDto createVoucher(String location, String phone, String paymentMethod, String email) {
+		// Create voucher object
+		VoucherDto voucher = new VoucherDto();
+		// Set total for voucher
+		voucher.setTotal_amount(getTotal());
+		// Set location for voucher
+		voucher.setLocation(location);
+		// Set phone number for voucher
+		voucher.setPhone(phone);
+		// Set voucher order date
+		voucher.setOrder_date(LocalDate.now());
+		// Set voucher order time
+		voucher.setOrder_time(LocalTime.now());
+		// Set voucher payment method
+		voucher.setPaymentMethod(paymentMethod);
+		// Set email to voucher
+		voucher.setEmail(email);
+		return voucher;
+	}
+	
 	private SaleItems getItem(int id) {
 		return items.stream().filter(item -> item.getProduct().getId() == id).findFirst().orElse(null);
 	}
-	
 }

@@ -52,6 +52,12 @@ public class ProductController {
 		cart.addToCart(service.findById(id), quantity);
 		return "menu";
 	}
+	
+	@GetMapping("/search")
+	public String search(@RequestParam("name") String name, ModelMap map) {
+		map.put("products", service.searchProduct(name));
+		return "menu";
+	}
 
 	@ModelAttribute("products")
 	List<ProductDto> getProducts() {

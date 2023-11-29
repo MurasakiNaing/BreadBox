@@ -1,8 +1,10 @@
 package com.breadbox.service.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class SaleItems {
 
 	private int id;

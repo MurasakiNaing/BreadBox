@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -16,6 +17,7 @@ import com.breadbox.service.dto.CategoryDto;
 public class CategoryDao {
 
 	@Autowired
+	@Qualifier("categories")
 	private SimpleJdbcInsert insert;
 
 	public List<CategoryDto> getAllCategories() {
@@ -51,8 +53,6 @@ public class CategoryDao {
 	}
 
 	public void addCategory(CategoryDto category) {
-		// Set Table
-		insert.setTableName("categories");
 		Map<String, Object> param = new HashMap<>();
 		param.put("name", category.getName());
 		insert.execute(param);

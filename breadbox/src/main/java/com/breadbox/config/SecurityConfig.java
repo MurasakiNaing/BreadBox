@@ -32,8 +32,8 @@ public class SecurityConfig {
 		return new HandlerMappingIntrospector();
 	}
 
-	@Scope("prototype")
 	@Bean
+	@Scope("prototype")
 	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
 		return new MvcRequestMatcher.Builder(introspector);
 	}
@@ -65,11 +65,11 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
 		MvcRequestMatcher[] userUrls = new MvcRequestMatcher[] { mvc.pattern("/cart"), mvc.pattern("/add-to-cart/{id}"),
-				mvc.pattern("/settings"), mvc.pattern("/orders") };
-		MvcRequestMatcher[] customerUrls = new MvcRequestMatcher[] {mvc.pattern("/cart-details/**")};
+				mvc.pattern("/settings"), mvc.pattern("/orders/**") };
+		MvcRequestMatcher[] customerUrls = new MvcRequestMatcher[] {mvc.pattern("/cart-details/**"), mvc.pattern("/checkout")};
 		http.authorizeHttpRequests(request -> {
 			request.requestMatchers(mvc.pattern("/login"), mvc.pattern("/sign-up"), mvc.pattern("/menu"),
-					mvc.pattern("/details/**")).permitAll();
+					mvc.pattern("/details/**"), mvc.pattern("/search")).permitAll();
 			request.requestMatchers(mvc.pattern("/admin/**")).hasAuthority("Admin");
 			request.requestMatchers(customerUrls).hasAnyAuthority("Customer", "Admin");
 			request.requestMatchers(userUrls).authenticated().requestMatchers(userUrls).hasAuthority("Customer");

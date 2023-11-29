@@ -18,10 +18,10 @@
 	
 	<jsp:include page="shared/navbar.jsp"></jsp:include>
 	<div class="container">
-		<h1>My Cart</h1>
-		<c:if test="${empty items}">
-			<p>Cart is Empty. <a href="/menu">Shop now.</a></p>
-		</c:if>
+		<h1>Order Details</h1>
+		<p>Voucher ID: ${voucher.id}</p>
+		<p>Order Date: ${voucher.order_date}</p>
+		<p>Order Time: ${voucher.order_time }</p>
 		<c:if test="${not empty items}">
 			<c:forEach items="${items}" var="item">
 				<div class="card border-0 mt-3">
@@ -35,26 +35,12 @@
 			        </div>
 			        <div class="col-7 col-md-8 col-lg-9">
 			          <div class="card-body px-0">
-			            <div class="row">
-			              <div class="col-8 col-md-10">
-			                <h5 class="card-title">${item.product.name}</h5>
-			              </div>
-			              <div class="col-1">
-			              	<c:url value="/cart-details/delete/${item.product.id}" var="deleteUrl"></c:url>
-			              	<sf:form action="${deleteUrl}" method="post">
-				                <button type="submit" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></button>
-			              	</sf:form>
-			              </div>
-			            </div>
+		                <h5 class="card-title">${item.product.name}</h5>
 			            <p class="card-text">${item.product.price}</p>
 			            <div class="row">
 			              <div class="col-8 col-md-10">
 			                <div class="d-flex align-items-center mb-2">
-			                  <c:url value="/cart-details/decrement/${item.product.id}" var="decrement"></c:url>
-			                  <a href="${decrement}" class="btn btn-primary decrement-button" style="width: 40px;">-</a>
 			                  <input type="text" class="mx-1 text-center border-0" style="width: 25px;" readonly value="${item.quantity}">
-			                  <c:url value="/cart-details/increment/${item.product.id}" var="increment"></c:url>
-			                  <a href="${increment}" class="btn btn-primary increment-button" style="width: 40px;">+</a>
 			                </div>
 			              </div>
 			              <div class="col-3 col-md-2">
@@ -66,9 +52,11 @@
 			      </div>
 			    </div>
 			</c:forEach>
-			<c:url value="/checkout" var="checkout"></c:url>
-			<a href="${checkout}" class="btn btn-primary">To Check Out <i class="fa-solid fa-arrow-right"></i></a>
 		</c:if>
+		<hr />
+		<p>Delivery Location: ${voucher.location}</p>
+		<p>Payment Type: ${voucher.paymentMethod}</p>
+		<p>Total: ${voucher.total_amount}</p>
 	</div>
 </body>
 </html>

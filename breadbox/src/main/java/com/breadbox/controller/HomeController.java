@@ -11,6 +11,7 @@ import com.breadbox.service.UserService;
 import com.breadbox.service.dto.Cart;
 import com.breadbox.service.dto.UserDto;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -21,7 +22,7 @@ public class HomeController {
 	private UserService service;
 
 	@GetMapping("/")
-	public String customerHome(Model map, Authentication authentication, HttpSession session) {
+	public String customerHome(Authentication authentication, HttpSession session, HttpServletRequest req) {
 		// Check if authentication is not null to check if the user is logged in or not
 		if(authentication != null) {
 			// If users is logged in and is admin redirect the page to admin home page

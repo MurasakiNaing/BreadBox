@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,6 +30,7 @@ public class UserDao {
 	private JdbcTemplate template;
 
 	@Autowired
+	@Qualifier("users")
 	private SimpleJdbcInsert insert;
 	
 	public UserDto findById(String email) {
@@ -43,8 +45,6 @@ public class UserDao {
 	}
 
 	public void signUp(SignupForm form) {
-		insert.setTableName("users");
-		insert.setGeneratedKeyName("userId");
 		insert.execute(getInsertParams(form));
 	}
 	

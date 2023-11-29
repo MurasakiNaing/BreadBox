@@ -45,9 +45,10 @@ public class EditProductController {
 			@RequestParam int category_id, @RequestParam int price, @RequestParam String image,
 			@RequestParam String description, HttpSession session, ModelMap map) {
 		// Check for validation errors
-		if (!validated(map, name, category_id))
+		if (!validated(map, name, category_id)) {
 			return "edit-product";
-
+		}
+		
 		// Get ProductDto Object
 		ProductDto product = new ProductDto();
 		// Set ID if it is not 0
@@ -84,6 +85,7 @@ public class EditProductController {
 				return "edit-product";
 			}
 		}
+
 		// Save Product
 		service.save(product);
 		// Send redirect Product Controller
@@ -125,11 +127,11 @@ public class EditProductController {
 			map.put("categoryError", "Please choose a category.");
 		}
 		/*
-		 * Check if the size of map is not 0 because if there's error map size will be
-		 * greater than 0 thus return false to indicate validation fails
+		 * Check if the map contains the keys put if there is error
 		 */
-		if (map.size() != 0)
+		if (map.containsKey("nameError") || map.containsKey("categoryError")) {
 			return false;
+		}
 
 		return true;
 	}
