@@ -3,10 +3,7 @@ package com.breadbox.service.dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,21 +17,14 @@ import com.breadbox.service.dto.UserDto.Role;
 
 @Repository
 public class UserDao {
-
-	@Autowired
-	DataSource datasource;
 	
 	@Autowired
 	private PasswordEncoder encoder;
 	
-	private JdbcTemplate template;
-
 	@Autowired
-	@Qualifier("users")
-	private SimpleJdbcInsert insert;
+	private JdbcTemplate template;
 	
 	public UserDto findById(String email) {
-		template = new JdbcTemplate(datasource);
 		try {
 			return template.queryForObject("select * from users where email = ?",
 					new BeanPropertyRowMapper<>(UserDto.class),
@@ -45,7 +35,42 @@ public class UserDao {
 	}
 
 	public void signUp(SignupForm form) {
+		var insert = new SimpleJdbcInsert(template.getDataSource());
+		insert.setTableName("users");
 		insert.execute(getInsertParams(form));
+	}
+	
+	public void changeProfile(String image, String email) {
+		// SQL String
+		var sql = """
+				update users
+				set profilepic = ?
+				where email = ?
+				""";
+		// Update Profile picture
+		template.update(sql, image, email);
+	}
+	
+	public void editUsername(String newUsername, String email) {
+		var sql = """
+				update users
+				set username = '%s'
+				where email = '%s'
+				""";
+		template.update(sql.formatted(newUsername, email));
+	}
+	
+	public void changePassword(String newPassword, String email) {
+		var sql = """
+				update users
+				set password = '%s'
+				where email = '%s'
+				""";
+		template.update(sql.formatted(encoder.encode(newPassword), email));
+	}
+	
+	public boolean validatePassword(String inputPassword, String currentPassword) {
+		return encoder.matches(inputPassword, currentPassword);
 	}
 	
 	private Map<String, Object> getInsertParams(SignupForm form) {

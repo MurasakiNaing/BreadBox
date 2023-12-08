@@ -65,7 +65,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
 		MvcRequestMatcher[] userUrls = new MvcRequestMatcher[] { mvc.pattern("/cart"), mvc.pattern("/add-to-cart/{id}"),
-				mvc.pattern("/settings"), mvc.pattern("/orders/**") };
+				mvc.pattern("/settings/**"), mvc.pattern("/orders/**") };
 		MvcRequestMatcher[] customerUrls = new MvcRequestMatcher[] {mvc.pattern("/cart-details/**"), mvc.pattern("/checkout")};
 		http.authorizeHttpRequests(request -> {
 			request.requestMatchers(mvc.pattern("/login"), mvc.pattern("/sign-up"), mvc.pattern("/menu"),
@@ -83,10 +83,6 @@ public class SecurityConfig {
 		});
 
 		http.rememberMe(Customizer.withDefaults());
-
-		http.logout(logout -> {
-			logout.logoutSuccessUrl("/");
-		});
 
 		return http.build();
 	}

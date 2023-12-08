@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -23,17 +23,19 @@ import com.breadbox.service.dto.VoucherDto;
 public class CheckoutDao {
 
 	@Autowired
-	@Qualifier("checkout")
-	private SimpleJdbcInsert insert;
-
+	private JdbcTemplate template;
+	
 	public void order(VoucherDto voucher, List<SaleItems> items) {
+		// Get SimpleJDBCInsert
+		var insert = new SimpleJdbcInsert(template.getDataSource());
+		// Set table name
+		insert.setTableName("voucher");
+		// Set generated key
+		insert.setGeneratedKeyName("id");
 		// Add voucher to voucher table
 		var voucher_id = insert.executeAndReturnKey(getVoucherInsert(voucher)).intValue();
 		// Set voucher id for all the sale items
 		setVoucherIdForItems(items, voucher_id);
-		
-		// Get JDBC Template
-		var template = insert.getJdbcTemplate();
 
 		// SQL String
 		String sql = "insert into sale_items (voucher_id, product_id, qty, price, product_name, product_image, amount) values (?, ?, ?, ?, ?, ?, ?)";
@@ -41,26 +43,25 @@ public class CheckoutDao {
 	}
 
 	public List<SaleItems> getVoucherItems(int voucher_id) {
-		// Get JDBC Template
-		var template = insert.getJdbcTemplate();
+		// SQL String
 		var sql = "select * from sale_items where voucher_id = %d";
 		return template.query(sql.formatted(voucher_id), getItemRowMapper());
 	}
 	
 	public List<VoucherDto> getAllVouchers() {
-		var template = insert.getJdbcTemplate();
+		// SQL String
 		var sql = "select * from voucher";
 		return template.query(sql, getVoucherRowMapper());
 	}
 	
 	public List<VoucherDto> getAllVouchersUser(String email) {
-		var template = insert.getJdbcTemplate();
+		// SQL String
 		var sql = "select * from voucher where email = '%s'";
 		return template.query(sql.formatted(email), getVoucherRowMapper());
 	}
 	
 	public VoucherDto getVoucher(int voucher_id) {
-		var template = insert.getJdbcTemplate();
+		// SQL String
 		var sql = "select * from voucher where id = %d";
 		return template.queryForObject(sql.formatted(voucher_id), getVoucherRowMapper());
 	}
@@ -71,6 +72,7 @@ public class CheckoutDao {
 			item.setId(rs.getInt("id"));
 			item.setVoucher_id(rs.getInt("voucher_id"));
 			item.setProduct(getProductDto(rs));
+			item.setQuantity(rs.getInt("qty"));
 			item.setAmount(rs.getInt("amount"));
 			return item;
 		};

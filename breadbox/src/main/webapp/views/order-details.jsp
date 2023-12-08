@@ -36,7 +36,7 @@
 			        <div class="col-7 col-md-8 col-lg-9">
 			          <div class="card-body px-0">
 		                <h5 class="card-title">${item.product.name}</h5>
-			            <p class="card-text">${item.product.price}</p>
+			            <p class="card-text text-secondary">${item.product.price} each</p>
 			            <div class="row">
 			              <div class="col-8 col-md-10">
 			                <div class="d-flex align-items-center mb-2">

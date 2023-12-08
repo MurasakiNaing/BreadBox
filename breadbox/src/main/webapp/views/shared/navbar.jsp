@@ -108,9 +108,10 @@
 						</c:if>
 
 						<hr class="d-lg-none" />
-						<li class="nav-item d-lg-none d-xl-none d-xxl-none"><a
-							class="nav-link active" href="#"><i class="fa-solid fa-gear"></i>
-								Settings</a></li>
+						<li class="nav-item d-lg-none d-xl-none d-xxl-none">
+							<c:url value="/settings" var="settings"></c:url>
+							<a class="nav-link active" href="${settings}"><i class="fa-solid fa-gear"></i> Settings</a>
+						</li>
 						<li class="nav-item d-lg-none d-xl-none d-xxl-none"><sf:form
 								action="/logout">
 								<button type="submit" class="dropdown-item">
@@ -145,8 +146,10 @@
 							<ul
 								class="dropdown-menu dropdown-menu-sm-start dropdown-menu-md-end me-1"
 								aria-labelledby="navbarDropdownMenuAvatar">
-								<li><a class="dropdown-item" href="#"><i
-										class="fa-solid fa-gear"></i> Settings</a></li>
+								<li>
+									<c:url value="/settings" var="settings"></c:url>
+									<a class="dropdown-item" href="${settings}"><i class="fa-solid fa-gear"></i> Settings</a>
+								</li>
 								<li><sf:form action="/logout">
 										<button type="submit" class="dropdown-item">
 											<i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out

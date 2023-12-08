@@ -52,7 +52,18 @@
 			<textarea placeholder="${product.description}" readonly="readonly" class="form-control"></textarea>
 		</div>
 		<c:if test="${not (user.role eq 'Admin')}">
-			<button class="btn btn-outline-success mb-2">Add To Cart</button>
+			<c:url value="/add-to-cart/${product.id}" var="addToCart"></c:url>
+            <sf:form action="${addToCart}" method="get" cssClass="mb-3 col-9 mx-auto mx-lg-0">
+	        	<div class="d-flex align-items-center mb-2">
+                	<button type="button" class="btn btn-primary decrement-button" style="width: 40px;">-</button>
+				    <input type="text" name="quantity" class="mx-1 text-center border-0" style="width: 25px;" readonly value="1">
+				    <button type="button" class="btn btn-primary increment-button" style="width: 40px;">+</button>
+            	</div>
+	                  				
+ 				<button type="submit" class="btn btn-outline-primary mb-2">
+ 					Add To Cart
+ 				</button>                  					
+			</sf:form>
 		</c:if>
 	</div>
 </body>

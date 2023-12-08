@@ -32,6 +32,14 @@ public class ProductService {
 		return dao.getAllProduct();
 	}
 	
+	public List<ProductDto> getTrendingProducts() {
+		return dao.getTrendingProducts();
+	}
+	
+	public List<ProductDto> getNewlyAddedProducts() {
+		return dao.getNewlyAddedProducts();
+	}
+	
 	@Transactional
 	public void save(ProductDto product) {
 		// Check if the product id is 0 or not.
