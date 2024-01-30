@@ -67,7 +67,7 @@
 			    </div>
 			</c:forEach>
 			<c:url value="/checkout" var="checkout"></c:url>
-			<a href="${checkout}" class="btn btn-primary">To Check Out <i class="fa-solid fa-arrow-right"></i></a>
+			<a href="${checkout}" class="btn btn-primary mt-3 mb-3">To Check Out <i class="fa-solid fa-arrow-right"></i></a>
 		</c:if>
 	</div>
 </body>

@@ -10,9 +10,11 @@
 <c:url value="/resources/css/bootstrap.min.css" var="cssBs" />
 <c:url value="/resources/js/bootstrap.bundle.min.js" var="jsBs" />
 <c:url value="/resources/js/all.js" var="jsFa" />
+<c:url value="/resources/js/product.js" var="jsProduct" />
 <link rel="stylesheet" href="${cssBs}">
 <script src="${jsBs}"></script>
 <script src="${jsFa}"></script>
+<script src="${jsProduct}" defer></script>
 </head>
 <body>
 	
@@ -129,9 +131,9 @@
 	        </c:forEach>
 	      </div>
 	</div>
-	<div class="container">
+	<div class="container mt-3 mb-3">
 		<c:url value="/menu" var="menuLink"></c:url>
-		<a href="${menuLink}" class="text-info text-secondary nav-link active text-decoration-underline">See More Products. <i class="fa-solid fa-caret-right"></i></a>
+		<a href="${menuLink}" class="text-primary nav-link active text-decoration-underline">See More Products. <i class="fa-solid fa-caret-right"></i></a>
 	</div>
 </body>
 </html>

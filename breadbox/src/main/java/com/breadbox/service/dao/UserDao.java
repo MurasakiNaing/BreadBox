@@ -79,7 +79,7 @@ public class UserDao {
 		map.put("username", form.getUsername());
 		map.put("password", encoder.encode(form.getPassword()));
 		map.put("role", Role.Customer.toString());
-		map.put("profilepic", null);
+		map.put("profilepic", "/resources/images/profile-images/default_pfp.png");
 		return map;
 	}
 	

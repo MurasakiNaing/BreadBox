@@ -19,11 +19,11 @@
 	<jsp:include page="shared/navbar.jsp"></jsp:include>
 	<div class="container">
 		<h1>Order Details</h1>
-		<p>Voucher ID: ${voucher.id}</p>
-		<p>Order Date: ${voucher.order_date}</p>
-		<p>Order Time: ${voucher.order_time }</p>
-		<c:if test="${not empty items}">
-			<c:forEach items="${items}" var="item">
+		<p>Voucher ID: ${order[0].voucher_id}</p>
+		<p>Order Date: ${order[0].order_date}</p>
+		<p>Order Time: ${order[0].order_time }</p>
+		<c:if test="${not empty order}">
+			<c:forEach items="${order}" var="item">
 				<div class="card border-0 mt-3">
 			      <div class="row row-cols-2">
 			        <div class="col-5 col-md-4 col-lg-3 pe-0 ">
@@ -54,9 +54,9 @@
 			</c:forEach>
 		</c:if>
 		<hr />
-		<p>Delivery Location: ${voucher.location}</p>
-		<p>Payment Type: ${voucher.paymentMethod}</p>
-		<p>Total: ${voucher.total_amount}</p>
+		<p>Delivery Location: ${order[0].location}</p>
+		<p>Payment Type: ${order[0].paymentMethod}</p>
+		<p>Total: ${order[0].total_amount}</p>
 	</div>
 </body>
 </html>

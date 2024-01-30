@@ -51,7 +51,7 @@
 					<sf:errors path="confirmPassword" cssClass="text-danger"></sf:errors>
 				</div>
 				
-				<sf:hidden path="profile" value="resources/images/profile-images/default_pfp.png" />
+				<sf:hidden path="profilepic" value="/resources/images/profile-images/default_pfp.png" />
 				
 				<div class="mb-3">
 					<button type="submit" class="btn btn-outline-primary w-100 rounded-0">Sign Up</button>

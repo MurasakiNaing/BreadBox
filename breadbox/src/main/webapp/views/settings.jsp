@@ -10,9 +10,11 @@
 <title>Setting</title>
 <c:url value="/resources/css/bootstrap.min.css" var="cssBs" />
 <c:url value="/resources/js/bootstrap.bundle.min.js" var="jsBs" />
+<c:url value="/resources/js/all.js" var="jsFa" />
 <c:url value="/resources/js/user.js" var="userJs" />
 <link rel="stylesheet" href="${cssBs}">
 <script src="${jsBs}"></script>
+<script src="${jsFa}"></script>
 <script src="${userJs}" defer></script>
 </head>
 <body onload="loadUsernameModal(${not empty usernameError}); loadPasswordModal(${not empty currentPasswordError or not empty newPasswordError})">

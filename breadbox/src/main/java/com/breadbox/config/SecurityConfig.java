@@ -76,6 +76,10 @@ public class SecurityConfig {
 			request.anyRequest().denyAll();
 		});
 
+		http.logout(form -> {
+			form.logoutSuccessUrl("/");
+		});
+		
 		http.formLogin(form -> {
 			form.loginPage("/login");
 			form.successHandler(successHandler);

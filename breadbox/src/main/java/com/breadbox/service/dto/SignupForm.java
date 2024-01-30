@@ -20,5 +20,5 @@ public class SignupForm {
 	@NotBlank(message = "Password confirm password.")
 	private String confirmPassword;
 	
-	private String profile;
+	private String profilepic;
 }

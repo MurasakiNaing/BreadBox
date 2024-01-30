@@ -71,10 +71,7 @@
 							</c:when>
 							<c:otherwise>
 
-								<li class="nav-item mt-1 mx-lg-2"><a
-									class="nav-link active" href="#"> <i
-										class="fa-regular fa-address-card"></i> About
-								</a></li>
+								
 
 								<li class="nav-item mt-1 mx-lg-2">
 								<c:url value="/orders" var="order"></c:url>
@@ -205,17 +202,12 @@
 							href="/menu"> <i class="fa-solid fa-bread-slice"></i> Menu
 						</a></li>
 
-						<li class="nav-item mt-1 mx-lg-2"><a class="nav-link active"
-							href="#"> <i class="fa-regular fa-address-card"></i> About
-						</a></li>
-
 						<li class="nav-item mt-1 mx-lg-2">
 						<c:url value="/orders" var="order"></c:url>
 						<a class="nav-link active"
 							href="${order}"> <i class="fa-solid fa-list-check"></i> Orders
 						</a></li>
-
-						
+	
 						<c:url value="/search" var="searchUrl"></c:url>
 						<sf:form action="${searchUrl}" method="get">
 							<div class="input-group w-auto d-none d-lg-inline-flex d-xl-inline-flex d-xxl-flex mt-1 mx-lg-2">

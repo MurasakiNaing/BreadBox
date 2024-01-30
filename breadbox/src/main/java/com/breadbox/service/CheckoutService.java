@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.breadbox.service.dao.CheckoutDao;
+import com.breadbox.service.dto.OrderDto;
 import com.breadbox.service.dto.SaleItems;
 import com.breadbox.service.dto.VoucherDto;
 
@@ -31,6 +32,10 @@ public class CheckoutService {
 	
 	public VoucherDto getVoucher(int voucher_id) {
 		return dao.getVoucher(voucher_id);
+	}
+	
+	public List<OrderDto> getOrder(int voucher_id) {
+		return dao.getOrder(voucher_id);
 	}
 	
 	@Transactional

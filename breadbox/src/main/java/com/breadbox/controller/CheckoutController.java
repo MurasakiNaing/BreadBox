@@ -46,8 +46,7 @@ public class CheckoutController {
 	
 	@GetMapping("/orders/{id}")
 	public String orderDetails(@PathVariable("id") int voucherId,ModelMap map) {
-		map.put("items", service.getVoucherItems(voucherId));
-		map.put("voucher", service.getVoucher(voucherId));
+		map.put("order", service.getOrder(voucherId));
 		return "order-details";
 	}
 

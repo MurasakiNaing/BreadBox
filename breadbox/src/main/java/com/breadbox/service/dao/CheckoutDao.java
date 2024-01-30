@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import com.breadbox.service.dto.OrderDto;
 import com.breadbox.service.dto.ProductDto;
 import com.breadbox.service.dto.SaleItems;
 import com.breadbox.service.dto.VoucherDto;
@@ -66,6 +67,35 @@ public class CheckoutDao {
 		return template.queryForObject(sql.formatted(voucher_id), getVoucherRowMapper());
 	}
 	
+	public List<OrderDto> getOrder(int id) {
+		// SQL String
+		var sql = """
+				select s.voucher_id, s.product_id, s.product_name, s.price, s.product_image, s.qty, s.amount, 
+				v.location, v.total_amount, v.paymentMethod, v.order_date, v.order_time
+				from sale_items s
+				join voucher v on v.id = s.voucher_id
+				where v.id = %d;
+				""";
+		return template.query(sql.formatted(id), getOrderRowMapper());
+	}
+	
+	private RowMapper<OrderDto> getOrderRowMapper() {
+		RowMapper<OrderDto> rm = (rs, rowNum) -> {
+			var order = new OrderDto();
+			order.setVoucher_id(rs.getInt("voucher_id"));
+			order.setProduct(getProductDto(rs));
+			order.setQuantity(rs.getInt("qty"));
+			order.setAmount(rs.getInt("amount"));
+			order.setOrder_date(rs.getDate("order_date").toLocalDate());
+			order.setOrder_time(rs.getTime("order_time").toLocalTime());
+			order.setLocation(rs.getString("location"));
+			order.setTotal_amount(rs.getInt("total_amount"));
+			order.setPaymentMethod(rs.getString("paymentMethod"));
+			return order;
+		};
+		return rm;
+	}
+	
 	private RowMapper<SaleItems> getItemRowMapper() {
 		RowMapper<SaleItems> rm = (rs, rowNum) -> {
 			var item = new SaleItems();
@@ -84,12 +114,12 @@ public class CheckoutDao {
 		RowMapper<VoucherDto> rm = (rs, rowNum) -> {
 			var voucher = new VoucherDto();
 			voucher.setId(rs.getInt("id"));
-			voucher.setOrder_date(rs.getDate("order_date").toLocalDate());
 			voucher.setLocation(rs.getString("location"));
 			voucher.setTotal_amount(rs.getInt("total_amount"));
 			voucher.setPhone(rs.getString("phone"));
 			voucher.setPaymentMethod(rs.getString("paymentMethod"));
 			voucher.setEmail(rs.getString("email"));
+			voucher.setOrder_date(rs.getDate("order_date").toLocalDate());
 			voucher.setOrder_time(rs.getTime("order_time").toLocalTime());
 			return voucher;
 		};

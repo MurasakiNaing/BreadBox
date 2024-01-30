@@ -21,7 +21,7 @@
 		<h1>Checkout</h1>
 		<div class="row">
         <!-- Left Column - Items to be ordered -->
-        <div class="col-lg-8">
+        <div class="col-lg-8 mb-3">
             <h2>Items to be Ordered</h2>
             	<div class="row">
 			            <c:forEach items="${cart.items}" var="item">
