@@ -45,10 +45,9 @@ public class EditProductController {
 			@RequestParam int category_id, @RequestParam int price, @RequestParam String image,
 			@RequestParam String description, HttpSession session, ModelMap map) {
 		// Check for validation errors
-		if (!validated(map, name, category_id)) {
+		if (!validated(map, name, id, category_id)) {
 			return "edit-product";
 		}
-		
 		// Get ProductDto Object
 		ProductDto product = new ProductDto();
 		// Set ID if it is not 0
@@ -113,14 +112,16 @@ public class EditProductController {
 		return categories.getAllCategories();
 	}
 
-	private boolean validated(ModelMap map, String name, int category_id) {
+	private boolean validated(ModelMap map, String name, int product_id, int category_id) {
 		// Check if the name is blank
 		if (name.isBlank()) {
 			map.put("nameError", "Product Name cannot be empty.");
 		}
 		// Check if product already exists
-		if (service.findByName(name) != null) {
-			map.put("nameError", "Product already exists.");
+		var product = service.findByName(name);
+		if (product != null) {
+			if(!(product.getId() == product_id))
+				map.put("nameError", "Product already exists.");
 		}
 		// Check if category is selected or not
 		if (category_id == 0) {

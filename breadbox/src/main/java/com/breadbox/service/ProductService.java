@@ -42,6 +42,7 @@ public class ProductService {
 	
 	@Transactional
 	public void save(ProductDto product) {
+		System.out.println(product.getId());
 		// Check if the product id is 0 or not.
 		if(product.getId() == 0)
 			// Call add product method if id is 0.
